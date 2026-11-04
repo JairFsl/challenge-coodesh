@@ -1,0 +1,23 @@
+appId: ${APP_ID}
+name: Entra com a conta de teste (teste@email.com)
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: auth-title
+      text: Entrar
+    timeout: 20000
+- waitForAnimationToEnd
+- tapOn:
+    id: email-input
+- inputText: teste@email.com
+- tapOn:
+    id: password-input
+- inputText: teste123
+- pressKey: Enter
+- extendedWaitUntil:
+    visible:
+      id: user-email
+      text: teste@email.com
+    timeout: 15000

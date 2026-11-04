@@ -1,0 +1,29 @@
+appId: ${APP_ID}
+name: Validação dos campos e credenciais incorretas no login
+tags:
+  - auth
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: auth-title
+      text: Entrar
+    timeout: 20000
+- waitForAnimationToEnd
+
+- tapOn:
+    id: submit-button
+- assertVisible: Informe seu e-mail.
+- assertVisible: A senha deve ter pelo menos 6 caracteres.
+
+- tapOn:
+    id: email-input
+- inputText: ninguem.cadastrado@mail.com
+- tapOn:
+    id: password-input
+- inputText: senhaerrada
+- pressKey: Enter
+- extendedWaitUntil:
+    visible: E-mail ou senha incorretos.
+    timeout: 15000

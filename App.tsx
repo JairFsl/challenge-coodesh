@@ -3,16 +3,23 @@ import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { LoadingScreen } from '@/presentation/components/LoadingScreen';
+import { useAuthSession } from '@/presentation/hooks/useAuthSession';
+import { RootNavigator } from '@/presentation/navigation/RootNavigator';
 import { QueryProvider } from '@/presentation/providers/QueryProvider';
 import { ThemeProvider, useTheme } from '@/presentation/theme';
 
 function AppContent() {
   const { dark } = useTheme();
+  const status = useAuthSession();
 
   return (
     <>
       <StatusBar barStyle={dark ? 'light-content' : 'dark-content'} />
-      <LoadingScreen />
+      {status === 'loading' ? (
+        <LoadingScreen />
+      ) : (
+        <RootNavigator isSignedIn={status === 'signedIn'} />
+      )}
     </>
   );
 }

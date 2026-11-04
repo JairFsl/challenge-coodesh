@@ -1,0 +1,22 @@
+appId: ${APP_ID}
+name: Apaga os dados locais e entra de novo com a conta criada no fluxo (output.email)
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: auth-title
+      text: Entrar
+    timeout: 20000
+- waitForAnimationToEnd
+- tapOn:
+    id: email-input
+- inputText: ${output.email}
+- tapOn:
+    id: password-input
+- inputText: segredo123
+- pressKey: Enter
+- extendedWaitUntil:
+    visible:
+      id: user-email
+    timeout: 15000

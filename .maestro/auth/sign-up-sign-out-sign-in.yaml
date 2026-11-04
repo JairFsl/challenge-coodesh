@@ -1,0 +1,59 @@
+appId: ${APP_ID}
+name: Cadastro, saída e novo login com a mesma conta
+tags:
+  - auth
+---
+- launchApp:
+    clearState: true
+- evalScript: ${output.email = 'e2e.' + Date.now() + '@mail.com'}
+- extendedWaitUntil:
+    visible:
+      id: auth-title
+      text: Entrar
+    timeout: 20000
+- waitForAnimationToEnd
+
+- tapOn:
+    id: switch-auth-button
+- extendedWaitUntil:
+    visible:
+      id: auth-title
+      text: Criar conta
+    timeout: 5000
+- tapOn:
+    id: email-input
+- inputText: ${output.email}
+- tapOn:
+    id: password-input
+- inputText: segredo123
+- pressKey: Enter
+
+- extendedWaitUntil:
+    visible:
+      id: user-email
+    timeout: 15000
+- assertVisible:
+    id: user-email
+    text: ${output.email}
+- tapOn:
+    id: sign-out-button
+
+- extendedWaitUntil:
+    visible:
+      id: auth-title
+      text: Entrar
+    timeout: 10000
+- tapOn:
+    id: email-input
+- inputText: ${output.email}
+- tapOn:
+    id: password-input
+- inputText: segredo123
+- pressKey: Enter
+- extendedWaitUntil:
+    visible:
+      id: user-email
+    timeout: 15000
+- assertVisible:
+    id: user-email
+    text: ${output.email}
