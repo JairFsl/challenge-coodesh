@@ -1,0 +1,26 @@
+appId: ${APP_ID}
+name: Lista de palavras com rolagem infinita
+tags:
+  - words
+---
+- runFlow: ../shared/sign-in-test-account.yaml
+
+- extendedWaitUntil:
+    visible:
+      id: word-cell-a
+    timeout: 15000
+- assertVisible:
+    id: word-cell-aa
+- assertNotVisible:
+    id: word-cell-abadengo
+
+- scrollUntilVisible:
+    element:
+      id: word-cell-abadengo
+    direction: DOWN
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      id: word-cell-abashes
+    direction: DOWN
+    timeout: 30000

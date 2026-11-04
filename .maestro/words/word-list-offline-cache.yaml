@@ -1,0 +1,41 @@
+appId: ${APP_ID}
+name: Lista de palavras carregada do cache sem internet (Android)
+tags:
+  - words
+  - offline
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - runFlow: ../shared/sign-in-test-account.yaml
+      - extendedWaitUntil:
+          visible:
+            id: word-cell-a
+          timeout: 15000
+      - scrollUntilVisible:
+          element:
+            id: word-cell-abadengo
+          direction: DOWN
+          timeout: 30000
+
+      - setAirplaneMode: enabled
+      - launchApp:
+          stopApp: true
+      - extendedWaitUntil:
+          visible:
+            id: offline-banner
+          timeout: 20000
+      - assertVisible:
+          id: word-cell-a
+      - scrollUntilVisible:
+          element:
+            id: word-cell-abadengo
+          direction: DOWN
+          timeout: 15000
+      - scrollUntilVisible:
+          element: Conecte-se para carregar mais palavras.
+          direction: DOWN
+          timeout: 15000
+
+      - setAirplaneMode: disabled

@@ -29,8 +29,7 @@ tags:
 - pressKey: Enter
 
 - extendedWaitUntil:
-    visible:
-      id: user-email
+    visible: Word list
     timeout: 15000
 - assertVisible:
     id: user-email
@@ -51,8 +50,7 @@ tags:
 - inputText: segredo123
 - pressKey: Enter
 - extendedWaitUntil:
-    visible:
-      id: user-email
+    visible: Word list
     timeout: 15000
 - assertVisible:
     id: user-email
