@@ -1,3 +1,4 @@
 flows:
   - auth/*
   - words/*
+  - user-words/*

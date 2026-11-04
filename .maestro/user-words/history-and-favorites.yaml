@@ -1,0 +1,83 @@
+appId: ${APP_ID}
+name: Histórico e favoritos salvos e sincronizados com o Supabase
+tags:
+  - user-words
+---
+- runFlow: ../shared/sign-up.yaml
+
+- tapOn:
+    id: tab-history
+- extendedWaitUntil:
+    visible:
+      id: history-list-empty
+    timeout: 5000
+- tapOn:
+    id: tab-favorites
+- extendedWaitUntil:
+    visible:
+      id: favorites-list-empty
+    timeout: 5000
+
+- tapOn:
+    id: tab-word-list
+- tapOn:
+    id: word-cell-aardvark
+- tapOn:
+    id: favorite-button
+- assertVisible: Remover dos favoritos
+- tapOn:
+    id: close-button
+- tapOn:
+    id: word-cell-aardwolf
+- assertVisible: Adicionar aos favoritos
+- tapOn:
+    id: close-button
+
+- tapOn:
+    id: tab-history
+- extendedWaitUntil:
+    visible: 2 palavras
+    timeout: 5000
+- assertVisible:
+    id: word-cell-aardwolf
+- assertVisible:
+    id: word-cell-aardvark
+- tapOn:
+    id: tab-favorites
+- extendedWaitUntil:
+    visible:
+      id: word-cell-aardvark
+    timeout: 5000
+- assertNotVisible:
+    id: word-cell-aardwolf
+
+- extendedWaitUntil:
+    notVisible:
+      id: sync-banner
+    timeout: 15000
+- runFlow: ../shared/sign-in-same-account.yaml
+- tapOn:
+    id: tab-favorites
+- extendedWaitUntil:
+    visible:
+      id: word-cell-aardvark
+    timeout: 15000
+- tapOn:
+    id: tab-history
+- extendedWaitUntil:
+    visible: 2 palavras
+    timeout: 15000
+
+- tapOn:
+    id: tab-favorites
+- tapOn:
+    id: word-cell-aardvark
+- tapOn:
+    id: favorite-button
+- assertVisible: Adicionar aos favoritos
+- tapOn:
+    id: close-button
+- extendedWaitUntil:
+    visible:
+      id: favorites-list-empty
+    timeout: 5000

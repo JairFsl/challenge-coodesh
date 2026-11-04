@@ -1,0 +1,67 @@
+appId: ${APP_ID}
+name: Detalhe da palavra com fonética, significados, pronúncia e navegação
+tags:
+  - words
+---
+- runFlow: ../shared/sign-in-test-account.yaml
+- extendedWaitUntil:
+    visible:
+      id: word-cell-aardvark
+    timeout: 15000
+- tapOn:
+    id: word-cell-aardvark
+
+- extendedWaitUntil:
+    visible:
+      id: meanings-list
+    timeout: 15000
+- assertVisible:
+    id: detail-word
+    text: aardvark
+- assertVisible:
+    id: detail-phonetic
+- assertVisible: noun
+
+- tapOn:
+    id: play-button
+- extendedWaitUntil:
+    visible: Pausar pronúncia
+    timeout: 20000
+- extendedWaitUntil:
+    visible: Ouvir pronúncia
+    timeout: 15000
+
+- tapOn:
+    id: next-button
+- extendedWaitUntil:
+    visible:
+      id: detail-word
+      text: aardvarks
+    timeout: 10000
+- tapOn:
+    id: previous-button
+- extendedWaitUntil:
+    visible:
+      id: detail-word
+      text: aardvark
+    timeout: 10000
+
+- tapOn:
+    id: close-button
+- extendedWaitUntil:
+    visible:
+      id: word-cell-aah
+    timeout: 5000
+- tapOn:
+    id: word-cell-aah
+- extendedWaitUntil:
+    visible:
+      id: detail-not-found
+    timeout: 15000
+- assertVisible: Voz sintetizada do aparelho
+- tapOn:
+    id: close-button
+- extendedWaitUntil:
+    visible:
+      id: word-list
+    timeout: 5000

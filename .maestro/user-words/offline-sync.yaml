@@ -1,0 +1,55 @@
+appId: ${APP_ID}
+name: Favorito marcado offline é sincronizado ao reconectar (Android)
+tags:
+  - user-words
+  - offline
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - runFlow: ../shared/sign-up.yaml
+      - extendedWaitUntil:
+          visible:
+            id: word-cell-aardvark
+          timeout: 15000
+
+      - setAirplaneMode: enabled
+      - extendedWaitUntil:
+          visible:
+            id: offline-banner
+          timeout: 15000
+      - tapOn:
+          id: word-cell-aardvark
+      - tapOn:
+          id: favorite-button
+      - assertVisible: Remover dos favoritos
+      - tapOn:
+          id: close-button
+      - assertVisible: .*2 alterações aguardando sincronização.*
+      - tapOn:
+          id: tab-favorites
+      - assertVisible:
+          id: word-cell-aardvark
+
+      - setAirplaneMode: disabled
+      - extendedWaitUntil:
+          notVisible:
+            id: offline-banner
+          timeout: 30000
+      - extendedWaitUntil:
+          notVisible:
+            id: sync-banner
+          timeout: 30000
+
+      - runFlow: ../shared/sign-in-same-account.yaml
+      - tapOn:
+          id: tab-favorites
+      - extendedWaitUntil:
+          visible:
+            id: word-cell-aardvark
+          timeout: 15000
+      - tapOn:
+          id: tab-history
+      - assertVisible:
+          id: word-cell-aardvark

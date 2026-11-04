@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 
 import { SignInScreen } from '@/presentation/screens/SignIn/SignInScreen';
 import { SignUpScreen } from '@/presentation/screens/SignUp/SignUpScreen';
+import { WordDetailScreen } from '@/presentation/screens/WordDetail/WordDetailScreen';
 import { useTheme } from '@/presentation/theme';
 
 import { HomeTabs } from './HomeTabs';
@@ -37,7 +38,14 @@ export function RootNavigator({ isSignedIn }: RootNavigatorProps) {
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isSignedIn ? (
-          <Stack.Screen name="Home" component={HomeTabs} />
+          <>
+            <Stack.Screen name="Home" component={HomeTabs} />
+            <Stack.Screen
+              name="WordDetail"
+              component={WordDetailScreen}
+              options={{ presentation: 'modal' }}
+            />
+          </>
         ) : (
           <>
             <Stack.Screen name="SignIn" component={SignInScreen} />

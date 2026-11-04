@@ -1,0 +1,51 @@
+appId: ${APP_ID}
+name: Detalhe da palavra servido do cache sem internet (Android)
+tags:
+  - words
+  - offline
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - runFlow: ../shared/sign-in-test-account.yaml
+      - extendedWaitUntil:
+          visible:
+            id: word-cell-aardvark
+          timeout: 15000
+      - tapOn:
+          id: word-cell-aardvark
+      - extendedWaitUntil:
+          visible:
+            id: meanings-list
+          timeout: 15000
+      - tapOn:
+          id: close-button
+
+      - setAirplaneMode: enabled
+      - launchApp:
+          stopApp: true
+      - extendedWaitUntil:
+          visible:
+            id: offline-banner
+          timeout: 20000
+      - tapOn:
+          id: word-cell-aardvark
+      - extendedWaitUntil:
+          visible:
+            id: meanings-list
+          timeout: 5000
+      - assertVisible:
+          id: detail-phonetic
+      - assertVisible: Voz sintetizada do aparelho
+      - tapOn:
+          id: close-button
+
+      - tapOn:
+          id: word-cell-aardwolf
+      - extendedWaitUntil:
+          visible:
+            id: detail-offline
+          timeout: 5000
+
+      - setAirplaneMode: disabled

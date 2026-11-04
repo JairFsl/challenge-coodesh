@@ -24,3 +24,11 @@ tags:
       id: word-cell-abashes
     direction: DOWN
     timeout: 30000
+
+- tapOn:
+    id: word-cell-abashes
+- extendedWaitUntil:
+    visible:
+      id: detail-word
+      text: abashes
+    timeout: 5000
